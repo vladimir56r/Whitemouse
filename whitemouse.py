@@ -17,7 +17,7 @@ import apiai
 TOKEN_TELEGRAM_FILE = 'telegram_token.ctl'
 TOKEN_DIALOGDLOW_FILE = 'dialogflow_token.ctl'
 WHITEMOUSE_IMG = 'whitemouse.jpg'
-ROTATEWHEEL_IMG = 'rotatewheel.gif'
+ROTATEWHEEL_URL = 'http://coub.com/view/13cty1'
 GIRLS_DIR = r''
 PARAMS = \
     {
@@ -117,12 +117,9 @@ def rotatewheel_command(bot, update):
             """
         }
         try:
-            if uniform(0, 1) < 0.6:
-                with open(ROTATEWHEEL_IMG, 'rb') as f:
-                    bot.send_photo(chat_id=update.message.chat_id, photo=f)
-                    return
-        except FileNotFoundError:
-            print_message("Warning: File {} not found! Send mesasge without photo.".format(ROTATEWHEEL_IMG), 2)
+            if uniform(0, 1) < 0.8:
+                bot.send_message(chat_id=update.message.chat_id, text="OK, BOSS! {}".format(ROTATEWHEEL_URL))
+                return
         except Exception:
             print_message(traceback.format_exc())
         bot.send_message(chat_id=update.message.chat_id, text=MSG[PARAMS["lang"]])
@@ -172,9 +169,9 @@ def getgirl_command(bot, update):
 
 
 def cnangelang_command(bot, update):
-    """ This is handler for command \cnangelang """
+    """ This is handler for command \changelang """
     try:
-        print_message("Handle command 'cnangelang' to chat {}".format(update.message.chat_id)) 
+        print_message("Handle command 'changelang' to chat {}".format(update.message.chat_id)) 
         MSG = \
         {
             "en" : \
@@ -248,7 +245,7 @@ def Start():
         updater = Updater(token=telegram_token)
         dispatcher = updater.dispatcher
         dispatcher.add_handler(CommandHandler('start', start_command))
-        dispatcher.add_handler(CommandHandler('cnangelang', cnangelang_command))
+        dispatcher.add_handler(CommandHandler('changelang', cnangelang_command))
         dispatcher.add_handler(CommandHandler('rotatewheel', rotatewheel_command))
         dispatcher.add_handler(CommandHandler('getgirl', getgirl_command))
         dispatcher.add_handler(MessageHandler(Filters.photo, photo_message))
